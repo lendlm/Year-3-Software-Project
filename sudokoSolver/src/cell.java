@@ -6,6 +6,7 @@ public class cell {
     private boolean rowValid;
     private boolean squareValid;
     private boolean marked;
+    private boolean immutable;
 
     public static final cell emptyCell = new cell();
 
@@ -16,6 +17,7 @@ public class cell {
         this.rowValid = true;
         this.squareValid = true;
         this.marked = false;
+        this.immutable = false;
     }
 
     public cell(int newNumber) {
@@ -25,10 +27,25 @@ public class cell {
         this.rowValid = true;
         this.squareValid = true;
         this.marked = false;
+        this.immutable = false;
+    }
+
+    public cell(int newNumber, boolean _immutable) {
+        this.number = newNumber;
+        this.isEmpty = false;
+        this.columnValid = true;
+        this.rowValid = true;
+        this.squareValid = true;
+        this.marked = false;
+        this.immutable = _immutable;
     }
 
     public cell getEmptyCell() { // resets cell into an empty one.
         return emptyCell;
+    }
+
+    public boolean isImmutable() {
+        return immutable;
     }
 
     public int getNumber() {

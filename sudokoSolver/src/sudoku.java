@@ -11,7 +11,7 @@ public class sudoku {
                 if (initial[y][x] == 0) {
                     grid[y][x] = new cell();
                 } else {
-                    grid[y][x] = new cell(initial[y][x]);
+                    grid[y][x] = new cell(initial[y][x], true);
                 }
             }
         }
@@ -20,7 +20,6 @@ public class sudoku {
             System.out.println("sudoku is invalid. pls check if puzzle is set up correctly.");
         } else {
             System.out.println("initialising complete. good luck.");
-
         };
     }
 
@@ -115,6 +114,10 @@ public class sudoku {
     }
 
     public void insertNumber(int newNumber, int column, int row) {
+        if(grid[column][row].isImmutable()) {
+            System.out.println("cell cannot be altered.");
+            return;
+        }
         if(newNumber == 0) {
             this.removeNumber(column, row);
             return;
@@ -168,12 +171,18 @@ public class sudoku {
 //            }
 //        }
 
+
+
         grid[column][row].setNumber(newNumber);
         System.out.println(newNumber + " has been inserted.");
         checkIfCellValid(column, row);
     }
 
     public void removeNumber(int column, int row) {
+        if(grid[column][row].isImmutable()) {
+            System.out.println("cell cannot be altered.");
+            return;
+        }
         if(grid[column][row].getNumber() == 0) {
             System.out.println("cell already empty.");
             return;
