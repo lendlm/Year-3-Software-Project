@@ -1,5 +1,4 @@
 // TO-DO LIST:
-//    fix marked numbers (changing a cell's number doesn't change previously marked cells).
 
 public class sudoku {
 
@@ -124,8 +123,52 @@ public class sudoku {
             return;
         }
 
-        grid[column][row].setNumber(newNumber);
+        int oldNumber = grid[column][row].getNumber();
+        if(oldNumber == newNumber) {
+            System.out.println("that number is already in the cell.");
+            return;
+        }
 
+        unmarkCells(grid[column][row], column, row);
+
+//        if(!grid[column][row].isColumnValid()) {
+//            for(int y = 0; y < 9; y++) {
+//                if(y == column) {
+//                    continue;
+//                }
+//                if(grid[y][row].getNumber() == oldNumber) {
+//                    grid[y][row].setColumnValid(true);
+//                }
+//            }
+//        }
+//        if(!grid[column][row].isRowValid()) {
+//            for(int x = 0; x < 9; x++) {
+//                if(x == row) {
+//                    continue;
+//                }
+//                if(grid[column][x].getNumber() == oldNumber) {
+//                    grid[column][x].setRowValid(true);
+//                }
+//            }
+//        }
+//        if(!grid[column][row].isSquareValid()) {
+//            int xSquare = row - row%3;
+//            int ySquare = column - column%3;
+//
+//            for(int y = 0; y < 3; y++) {
+//                int miniy = ySquare + y;
+//                for(int x = 0; x < 3; x++) {
+//                    int minix = xSquare + x;
+//                    if(minix == row && miniy == column) {
+//                        continue;
+//                    } else if(grid[miniy][minix].getNumber() == oldNumber) {
+//                        grid[miniy][minix].setSquareValid(true);
+//                    }
+//                }
+//            }
+//        }
+
+        grid[column][row].setNumber(newNumber);
         System.out.println(newNumber + " has been inserted.");
         checkIfCellValid(column, row);
     }
@@ -135,8 +178,51 @@ public class sudoku {
             System.out.println("cell already empty.");
             return;
         }
+
+        unmarkCells(grid[column][row], column, row);
+
         grid[column][row] = new cell().getEmptyCell();
         System.out.println("number has been removed.");
+    }
+
+    private void unmarkCells(cell currentCell, int column, int row) {
+
+        if(!currentCell.isColumnValid()) {
+            for(int y = 0; y < 9; y++) {
+                if(y == column) {
+                    continue;
+                }
+                if(grid[y][row].getNumber() == currentCell.getNumber()) {
+                    grid[y][row].setColumnValid(true);
+                }
+            }
+        }
+        if(!currentCell.isRowValid()) {
+            for(int x = 0; x < 9; x++) {
+                if(x == row) {
+                    continue;
+                }
+                if(grid[column][x].getNumber() == currentCell.getNumber()) {
+                    grid[column][x].setRowValid(true);
+                }
+            }
+        }
+        if(!currentCell.isSquareValid()) {
+            int xSquare = row - row%3;
+            int ySquare = column - column%3;
+
+            for(int y = 0; y < 3; y++) {
+                int miniy = ySquare + y;
+                for(int x = 0; x < 3; x++) {
+                    int minix = xSquare + x;
+                    if(minix == row && miniy == column) {
+                        continue;
+                    } else if(grid[miniy][minix].getNumber() == currentCell.getNumber()) {
+                        grid[miniy][minix].setSquareValid(true);
+                    }
+                }
+            }
+        }
     }
 
     public void displaySudoku() {

@@ -58,10 +58,9 @@ public class cell {
         this.columnValid = valid;
         if(valid == false) {
             this.setMarked(true);
+        } else if(this.isColumnValid() && this.isRowValid() && this.isSquareValid()) {
+            this.setMarked(false);
         }
-//        else if(this.isColumnValid() && this.isRowValid() && this.isSquareValid()) {
-//            this.setMarked(false);
-//        }
     }
 
     public boolean isRowValid() {
@@ -71,6 +70,8 @@ public class cell {
         this.rowValid = valid;
         if(valid == false) {
             this.setMarked(true);
+        } else if(this.isColumnValid() && this.isRowValid() && this.isSquareValid()) {
+            this.setMarked(false);
         }
     }
 
@@ -81,6 +82,8 @@ public class cell {
         this.squareValid = valid;
         if(valid == false) {
             this.setMarked(true);
+        } else if(this.isColumnValid() && this.isRowValid() && this.isSquareValid()) {
+            this.setMarked(false);
         }
     }
 
