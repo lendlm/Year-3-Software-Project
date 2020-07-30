@@ -78,6 +78,8 @@ public class sudokuTest {
         test4.displaySudokuDebug("isRowValid");
         test4.displaySudokuDebug("isSquareValid");
 
+
+
     }
 
 }

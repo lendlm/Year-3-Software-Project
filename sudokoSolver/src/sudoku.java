@@ -23,8 +23,6 @@ public class sudoku {
         };
     }
 
-
-
     private boolean checkIfGridValid() {
         boolean valid = true;
 
@@ -61,36 +59,41 @@ public class sudoku {
         return valid;
     }
     private boolean validColumn(cell currentCell, int row, int column) {
+        boolean valid = true;
+
         for(int y = 0; y < grid.length; y++) {
             if(y == column) {
                 continue;
             }
             if(currentCell.getNumber() == grid[y][row].getNumber()) {
-                System.out.println("invalid cell. number already exists in column.");
+//                System.out.println("invalid cell. number already exists in column.");
                 grid[column][row].setColumnValid(false);
                 grid[y][row].setColumnValid(false);
-                return false;
+                valid = false;
             }
         }
-        return true;
+        return valid;
     }
     private boolean validRow(cell currentCell, int column, int row) {
+        boolean valid = true;
+
         for(int x = 0; x < grid.length; x++) {
             if(x == row) {
                 continue;
             }
             if(currentCell.getNumber() == grid[column][x].getNumber()) {
-                System.out.println("invalid cell. number already exists in row.");
+//                System.out.println("invalid cell. number already exists in row.");
                 grid[column][row].setRowValid(false);
                 grid[column][x].setRowValid(false);
-                return false;
+                valid = false;
             }
         }
-        return true;
+        return valid;
     }
     private boolean validSquare(cell currentCell, int row, int column) {
         int xSquare = row - row%3;
         int ySquare = column - column%3;
+        boolean valid = true;
 
         for(int y = 0; y < 3; y++) {
             int miniy = ySquare + y;
@@ -101,35 +104,40 @@ public class sudoku {
 //                    System.out.println("miss me");
                     continue;
                 } else if(currentCell.getNumber() == grid[miniy][minix].getNumber()) {
-                    System.out.println("invalid cell. number already exists in square.");
+//                    System.out.println("invalid cell. number already exists in square.");
                     grid[column][row].setSquareValid(false);
                     grid[miniy][minix].setSquareValid(false);
 //                    System.out.println(grid[miniy][minix] + " " + cell);
-                    return false;
+                    valid = false;
                 }
             }
         }
 
-        return true;
+        return valid;
     }
 
-    public void insertNumber(int newNumber, int column, int row) {
+
+    public cell getCell(int xPos, int yPos) {
+        return grid[yPos][xPos];
+    }
+
+    public boolean insertNumber(int newNumber, int column, int row) {
         if(grid[column][row].isImmutable()) {
             System.out.println("cell cannot be altered.");
-            return;
+            return false;
         }
         if(newNumber == 0) {
             this.removeNumber(column, row);
-            return;
+            return true;
         } else if(newNumber > 9 || newNumber < 1) {
             System.out.println("invalid number being inserted. please insert a number from 1 - 9.");
-            return;
+            return false;
         }
 
         int oldNumber = grid[column][row].getNumber();
         if(oldNumber == newNumber) {
             System.out.println("that number is already in the cell.");
-            return;
+            return false;
         }
 
         unmarkCells(grid[column][row], column, row);
@@ -175,7 +183,7 @@ public class sudoku {
 
         grid[column][row].setNumber(newNumber);
         System.out.println(newNumber + " has been inserted.");
-        checkIfCellValid(column, row);
+        return checkIfCellValid(column, row);
     }
 
     public void removeNumber(int column, int row) {
@@ -190,13 +198,32 @@ public class sudoku {
 
         unmarkCells(grid[column][row], column, row);
 
-        grid[column][row] = new cell().getEmptyCell();
-        System.out.println("number has been removed.");
+//        System.out.println(grid[column][row].getNumber() + " has been removed.");
+        grid[column][row] = new cell();
+//        System.out.println(grid[column][row].getNumber());
     }
 
     private void unmarkCells(cell currentCell, int column, int row) {
 
         if(!currentCell.isColumnValid()) {
+            int multiInvalid = 0;
+            boolean onlyTwoInvalid = true;
+            for(int y = 0; y < 9; y++) {
+                if(y == column) {
+                    continue;
+                }
+                if(!grid[y][row].isColumnValid()) {
+                    multiInvalid++;
+                }
+                if(multiInvalid > 1) {
+                    onlyTwoInvalid = false;
+                    break;
+                }
+            }
+            if(!onlyTwoInvalid) {
+                return;
+            }
+
             for(int y = 0; y < 9; y++) {
                 if(y == column) {
                     continue;
@@ -207,6 +234,24 @@ public class sudoku {
             }
         }
         if(!currentCell.isRowValid()) {
+            int multiInvalid = 0;
+            boolean onlyTwoInvalid = true;
+            for(int x = 0; x < 9; x++) {
+                if(x == row) {
+                    continue;
+                }
+                if(!grid[column][x].isRowValid()) {
+                    multiInvalid++;
+                }
+                if(multiInvalid > 1) {
+                    onlyTwoInvalid = false;
+                    break;
+                }
+            }
+            if(!onlyTwoInvalid) {
+                return;
+            }
+
             for(int x = 0; x < 9; x++) {
                 if(x == row) {
                     continue;
@@ -219,6 +264,33 @@ public class sudoku {
         if(!currentCell.isSquareValid()) {
             int xSquare = row - row%3;
             int ySquare = column - column%3;
+
+            int multiInvalid = 0;
+            boolean onlyTwoInvalid = true;
+            for(int y = 0; y < 3; y++) {
+                int miniy = ySquare + y;
+                for(int x = 0; x < 3; x++) {
+                    int minix = xSquare + x;
+                    if(minix == row && miniy == column) {
+                        continue;
+                    } else if(!grid[miniy][minix].isSquareValid()) {
+                        multiInvalid++;
+                    }
+                    if(multiInvalid > 1) {
+                        onlyTwoInvalid = false;
+                        break;
+                    }
+                    if(!onlyTwoInvalid) {
+                        break;
+                    }
+                }
+                if(!onlyTwoInvalid) {
+                    break;
+                }
+            }
+            if(!onlyTwoInvalid) {
+                return;
+            }
 
             for(int y = 0; y < 3; y++) {
                 int miniy = ySquare + y;
@@ -292,12 +364,14 @@ public class sudoku {
         this.percentOfZeros /= 100;
     }
 
-    public void checkIfCompleted() {
+    public boolean checkIfCompleted() {
         updatePercentOfZeros();
         if(this.percentOfZeros == 0 && checkIfGridValid()) {
             System.out.println("sudoku completed! congratulations!");
+            return true;
         } else {
-            System.out.println("sudoku is only " + (100 - this.percentOfZeros) + "% complete. keep it up!");
+//            System.out.println("sudoku is only " + (100 - this.percentOfZeros) + "% complete. keep it up!");
+            return false;
         }
     }
 }
