@@ -1,4 +1,4 @@
-// TO-DO LIST:
+package com.example.solverProgram;
 
 public class sudoku {
 
@@ -182,7 +182,7 @@ public class sudoku {
 
 
         grid[column][row].setNumber(newNumber);
-        System.out.println(newNumber + " has been inserted.");
+//        System.out.println(newNumber + " has been inserted.");
         return checkIfCellValid(column, row);
     }
 
@@ -305,7 +305,7 @@ public class sudoku {
             }
         }
     }
-
+//    to display the sudoku onto the console.
     public void displaySudoku() {
         for(int y = 0; y < grid.length; y++) {
             if(y%3 == 0 && !(y == 0)) {
@@ -321,6 +321,7 @@ public class sudoku {
             System.out.println("");
         }
     }
+//    to display the sudoku but with relevant information.
     public void displaySudokuDebug(String para) {
         for(int y = 0; y < grid.length; y++) {
             for(int x = 0; x < grid[0].length; x++) {
@@ -367,11 +368,21 @@ public class sudoku {
     public boolean checkIfCompleted() {
         updatePercentOfZeros();
         if(this.percentOfZeros == 0 && checkIfGridValid()) {
-            System.out.println("sudoku completed! congratulations!");
+//            System.out.println("sudoku completed! congratulations!");
             return true;
         } else {
 //            System.out.println("sudoku is only " + (100 - this.percentOfZeros) + "% complete. keep it up!");
             return false;
         }
+    }
+
+    public int[][] getCellValues() {
+        int cellValues[][] = new int[9][9];
+        for(int y = 0; y < cellValues.length; y++) {
+            for(int x = 0; x < cellValues[0].length; x++) {
+                cellValues[y][x] = grid[y][x].getNumber();
+            }
+        }
+        return cellValues;
     }
 }

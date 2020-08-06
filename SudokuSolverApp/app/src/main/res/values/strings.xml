@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Sudoku Solver</string>
-
+<!--    empty cell-->
     <string name="cell"></string>
 
 <!--    buttons to choose number-->
@@ -17,4 +17,18 @@
 <!--    button(s) to clear cells-->
     <string name="clear_single">clear cell</string>
     <string name="clear_all">clear all</string>
+
+<!--    solve buttons-->
+    <string name="solve">solve</string>
+    <string name="solve_one">solve one</string>
+    <string name="solve_some">solve some</string>
+    <string name="solve_all">solve all</string>
+    <string name="go_back">go back</string>
+
+<!--    howTo strings-->
+    <string name="howto_header">How to use solver</string>
+    <string name="howto_1">1. Insert numbers from the sudoku you are solving into the board on the app. (An example has already been given if you would like to see how it works. Use [clear all] to have a fresh board)</string>
+    <string name="howto_2">2. Once you have checked all numbers are correct, tap [solve] to take you to the solving screen. If it does not take you there, you may have inputted incorrect numbers and you may need to clear some cells that you have put in yourself.</string>
+    <string name="howto_3">3. Now you are on the solve screen, you may choose 3 ways to help solve your sudoku. [solve one] allows you to choose which cell you would like to reveal the answer of. [solve some] reveals a random amount of cells to help you carry on solving it yourself. [solve all] will solve the rest of the board in case you are really stuck. I hope you find the app helpful and good luck!</string>
+    <string name="howto_button">\?</string>
 </resources>

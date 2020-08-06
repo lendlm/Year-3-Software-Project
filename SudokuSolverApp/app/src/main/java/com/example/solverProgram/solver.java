@@ -1,8 +1,4 @@
-// COMPONENTS:
-// recursive??
-// backtracking (a way to go back without touching immutable cells)
-//
-
+package com.example.solverProgram;
 
 public class solver {
 
@@ -23,6 +19,7 @@ public class solver {
 
         if(puzzle.checkIfCompleted()) { // this will end recursion once completed.
             puzzle.displaySudoku();
+            solvedPuzzle = puzzle;
             return true;
         }
 
@@ -70,13 +67,14 @@ public class solver {
         }
 
         if(puzzle.checkIfCompleted()) {
-            puzzle.displaySudoku();
+//            puzzle.displaySudoku();
+            solvedPuzzle = puzzle;
             return true;
         }
 
         for(int cellInsert = 1; cellInsert <= n; cellInsert++) {
             if(puzzle.insertNumber(cellInsert, yPos, xPos)) {
-                puzzle.displaySudoku();
+//                puzzle.displaySudoku();
                 if(solvePuzzle(puzzle, n)) {
                     return true;
                 } else {
@@ -91,5 +89,9 @@ public class solver {
 
 //        puzzle.displaySudoku();
         return false;
+    }
+
+    public sudoku getSolvedPuzzle() {
+        return solvedPuzzle;
     }
 }

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#f7c8d3</color>
+    <color name="colorPrimaryDark">#b75297</color>
+    <color name="colorAccent">#b75297</color>
+    <color name="background">#fef2e3</color>
+    <color name="border_color">#fef2e3</color>
+    <color name="board1">#4ca08a</color>
+    <color name="board2">#1a7c65</color>
+    <color name="button_color">#1a7c65</color>
+    <color name="button_border">#fef2e3</color>
+    <color name="button_highlight">#b75297</color>
+    <color name="solve_highlight">#e9a537</color>
+    <color name="text_color1">#fef2e3</color>
+    <color name="text_color2">#1a7c65</color>
+
 </resources>

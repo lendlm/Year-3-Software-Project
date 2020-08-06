@@ -1,3 +1,5 @@
+package com.example.solverProgram;
+
 public class cell {
 
     private int number;

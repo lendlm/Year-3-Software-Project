@@ -1,3 +1,5 @@
+package com.example.solverProgram;
+
 public class solverTest {
     public static void main(String[] args) {
         int[][] solverTest1 = {
