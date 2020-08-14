@@ -10,7 +10,7 @@ public class cell {
     private boolean marked;
     private boolean immutable;
 
-    public static final cell emptyCell = new cell();
+//    public static final cell emptyCell = new cell();
 
     public cell() { // creates empty cell.
         this.number = 0;
@@ -42,9 +42,9 @@ public class cell {
         this.immutable = _immutable;
     }
 
-    public cell getEmptyCell() { // resets cell into an empty one.
-        return emptyCell;
-    }
+//    public cell getEmptyCell() { // resets cell into an empty one.
+//        return emptyCell;
+//    }
 
     public boolean isImmutable() {
         return immutable;
@@ -75,7 +75,7 @@ public class cell {
     }
     public void setColumnValid(boolean valid) {
         this.columnValid = valid;
-        if(valid == false) {
+        if(!valid) {
             this.setMarked(true);
         } else if(this.isColumnValid() && this.isRowValid() && this.isSquareValid()) {
             this.setMarked(false);
@@ -87,7 +87,7 @@ public class cell {
     }
     public void setRowValid(boolean valid) {
         this.rowValid = valid;
-        if(valid == false) {
+        if(!valid) {
             this.setMarked(true);
         } else if(this.isColumnValid() && this.isRowValid() && this.isSquareValid()) {
             this.setMarked(false);
@@ -99,7 +99,7 @@ public class cell {
     }
     public void setSquareValid(boolean valid) {
         this.squareValid = valid;
-        if(valid == false) {
+        if(!valid) {
             this.setMarked(true);
         } else if(this.isColumnValid() && this.isRowValid() && this.isSquareValid()) {
             this.setMarked(false);
@@ -112,16 +112,16 @@ public class cell {
         this.setSquareValid(true);
         this.setMarked(false);
     }
-    public void setMultiValids(boolean col, boolean row, boolean sq) {
-        this.setColumnValid(col);
-        this.setRowValid(row);
-        this.setSquareValid(sq);
-        if(col == true || row == true || sq == true) {
-            this.setMarked(true);
-        } else {
-            this.setMarked(false);
-        }
-    }
+//    public void setMultiValids(boolean col, boolean row, boolean sq) {
+//        this.setColumnValid(col);
+//        this.setRowValid(row);
+//        this.setSquareValid(sq);
+//        if(col || row || sq) {
+//            this.setMarked(true);
+//        } else {
+//            this.setMarked(false);
+//        }
+//    }
 
     public boolean isMarked() {
         return marked;

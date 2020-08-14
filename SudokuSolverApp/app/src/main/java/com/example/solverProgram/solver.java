@@ -3,16 +3,20 @@ package com.example.solverProgram;
 public class solver {
 
     private sudoku OGpuzzle;
-    private sudoku tempPuzzle;
+//    private sudoku tempPuzzle;
     private sudoku solvedPuzzle;
 
     public solver(sudoku puzzle_) {
         OGpuzzle = puzzle_;
-        tempPuzzle = puzzle_;
+//        tempPuzzle = puzzle_;
     }
 
     public boolean solvePuzzle() {
-        return this.solvePuzzle(OGpuzzle, 9);
+        if(OGpuzzle.checkIfGridValid()) {
+            return this.solvePuzzle(OGpuzzle);
+        } else {
+            return false;
+        }
     }
     public boolean solvePuzzle(sudoku puzzle, int xPos, int yPos) { // recursive function to fill sudoku.
         System.out.println("xPos: " + xPos + ", yPos: " + yPos);
@@ -46,13 +50,19 @@ public class solver {
 //        puzzle.displaySudokuDebug("isSquareValid");
         return false;
     }
-    public boolean solvePuzzle(sudoku puzzle, int n) {
+    public boolean solvePuzzle(sudoku puzzle) {
         int xPos = -1;
         int yPos = -1;
         boolean isEmpty = true;
 
-        for(int y = 0; y < n; y++) {
-            for( int x = 0; x < n; x++) {
+        if(puzzle.checkIfCompleted()) {
+//            puzzle.displaySudoku();
+            solvedPuzzle = puzzle;
+            return true;
+        }
+
+        for(int y = 0; y < 9; y++) {
+            for( int x = 0; x < 9; x++) {
                 if(puzzle.getCell(x, y).isEmpty()) {
                     xPos = x;
                     yPos = y;
@@ -66,20 +76,17 @@ public class solver {
             }
         }
 
-        if(puzzle.checkIfCompleted()) {
-//            puzzle.displaySudoku();
-            solvedPuzzle = puzzle;
-            return true;
-        }
 
-        for(int cellInsert = 1; cellInsert <= n; cellInsert++) {
+
+        for(int cellInsert = 1; cellInsert <= 9; cellInsert++) {
             if(puzzle.insertNumber(cellInsert, yPos, xPos)) {
 //                puzzle.displaySudoku();
-                if(solvePuzzle(puzzle, n)) {
+                if(solvePuzzle(puzzle)) {
                     return true;
-                } else {
-//                    puzzle.removeNumber(yPos, xPos);
                 }
+//                else {
+////                    puzzle.removeNumber(yPos, xPos);
+//                }
             } else {
                 puzzle.removeNumber(yPos, xPos);
 //                System.out.println("removed at: " + xPos + ", " + yPos);

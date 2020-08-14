@@ -20,19 +20,17 @@ public class sudoku {
             System.out.println("sudoku is invalid. pls check if puzzle is set up correctly.");
         } else {
             System.out.println("initialising complete. good luck.");
-        };
+        }
     }
 
-    private boolean checkIfGridValid() {
+    public boolean checkIfGridValid() {
         boolean valid = true;
 
         for(int y = 0; y < grid.length; y++ ) {
             for (int x = 0; x < grid[0].length; x++) {
                 cell temp = grid[y][x]; // to reduce the time taken to find the number. resets the number's maker with the modular operation.
 
-                if(temp.isEmpty() || temp.isMarked()) {
-                    continue;
-                } else {
+                if(!(temp.isEmpty())) {
 //                    System.out.println("y: " + y + " x: " + x + " cell: " + temp.getNumber());
                     if(!checkIfCellValid(y, x)) {
                         System.out.println("not valid here: column: " + y + " row: " + x);
@@ -103,7 +101,8 @@ public class sudoku {
                 if(minix == row && miniy == column) {
 //                    System.out.println("miss me");
                     continue;
-                } else if(currentCell.getNumber() == grid[miniy][minix].getNumber()) {
+                }
+                if(currentCell.getNumber() == grid[miniy][minix].getNumber()) {
 //                    System.out.println("invalid cell. number already exists in square.");
                     grid[column][row].setSquareValid(false);
                     grid[miniy][minix].setSquareValid(false);
@@ -115,7 +114,6 @@ public class sudoku {
 
         return valid;
     }
-
 
     public cell getCell(int xPos, int yPos) {
         return grid[yPos][xPos];
@@ -178,8 +176,6 @@ public class sudoku {
 //                }
 //            }
 //        }
-
-
 
         grid[column][row].setNumber(newNumber);
 //        System.out.println(newNumber + " has been inserted.");
@@ -280,9 +276,9 @@ public class sudoku {
                         onlyTwoInvalid = false;
                         break;
                     }
-                    if(!onlyTwoInvalid) {
-                        break;
-                    }
+//                    if(!onlyTwoInvalid) {
+//                        break;
+//                    }
                 }
                 if(!onlyTwoInvalid) {
                     break;
@@ -298,7 +294,8 @@ public class sudoku {
                     int minix = xSquare + x;
                     if(minix == row && miniy == column) {
                         continue;
-                    } else if(grid[miniy][minix].getNumber() == currentCell.getNumber()) {
+                    }
+                    if(grid[miniy][minix].getNumber() == currentCell.getNumber()) {
                         grid[miniy][minix].setSquareValid(true);
                     }
                 }
@@ -318,36 +315,36 @@ public class sudoku {
                     System.out.print(grid[y][x].getNumber() + " ");
                 }
             }
-            System.out.println("");
+            System.out.println();
         }
     }
 //    to display the sudoku but with relevant information.
     public void displaySudokuDebug(String para) {
-        for(int y = 0; y < grid.length; y++) {
-            for(int x = 0; x < grid[0].length; x++) {
+        for (cell[] cells : grid) {
+            for (int x = 0; x < grid[0].length; x++) {
                 int bool;
-                switch(para) {
+                switch (para) {
                     case "isEmpty":
-                        bool = grid[y][x].isEmpty()? 1 : 0;
+                        bool = cells[x].isEmpty() ? 1 : 0;
                         System.out.print(bool + " ");
                         break;
                     case "isColumnValid":
-                        bool = grid[y][x].isColumnValid()? 1 : 0;
+                        bool = cells[x].isColumnValid() ? 1 : 0;
                         System.out.print(bool + " ");
                         break;
                     case "isRowValid":
-                        bool = grid[y][x].isRowValid()? 1 : 0;
+                        bool = cells[x].isRowValid() ? 1 : 0;
                         System.out.print(bool + " ");
                         break;
                     case "isSquareValid":
-                        bool = grid[y][x].isSquareValid()? 1 : 0;
+                        bool = cells[x].isSquareValid() ? 1 : 0;
                         System.out.print(bool + " ");
                         break;
                 }
             }
-            System.out.println("");
+            System.out.println();
         }
-        System.out.println("");
+        System.out.println();
     }
 
     private void updatePercentOfZeros() {
@@ -377,7 +374,7 @@ public class sudoku {
     }
 
     public int[][] getCellValues() {
-        int cellValues[][] = new int[9][9];
+        int[][] cellValues = new int[9][9];
         for(int y = 0; y < cellValues.length; y++) {
             for(int x = 0; x < cellValues[0].length; x++) {
                 cellValues[y][x] = grid[y][x].getNumber();
