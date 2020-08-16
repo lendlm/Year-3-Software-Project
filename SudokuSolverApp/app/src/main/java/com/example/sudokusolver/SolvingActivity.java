@@ -3,7 +3,6 @@ package com.example.sudokusolver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +20,9 @@ public class SolvingActivity extends AppCompatActivity implements View.OnClickLi
 //    initialising cell views.
     private TextView[] cells = new TextView[81];
     private TextView cellView;
-    private boolean cellChosen = false;
+//    private boolean cellChosen = false;
     private boolean solveOneChosen = false;
-    private int cellId;
+//    private int cellId;
     private int emptyCells = 81;
 
     private TextView solveOneButton;
@@ -32,7 +31,9 @@ public class SolvingActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solver);
+
         Intent puzzleInfo = getIntent();
+        // retrieve 2D arrays from previous activity.
         Object[] userInputArray = (Object[]) puzzleInfo.getExtras().getSerializable("user_input");
         Object[] completedBoardArray = (Object[]) puzzleInfo.getExtras().getSerializable("solved_puzzle");
         if(userInputArray != null && completedBoardArray != null) {
@@ -54,17 +55,19 @@ public class SolvingActivity extends AppCompatActivity implements View.OnClickLi
             cellPos += (char) (y + '0');
 //            System.out.println(cellPos);
             int id = getResources().getIdentifier(cellPos, "id", getPackageName()); // gets int id for the corresponding cell position.
-            cells[i] = (TextView) findViewById(id);
+            cells[i] = findViewById(id);
             if(userInput[y][x] != 0) {
                 cells[i].setText(String.valueOf(userInput[y][x]));
                 emptyCells--;
+            } else {
+                cells[i].setText(R.string.cell);
             }
             cells[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     cellView = (TextView) view;
-                    cellChosen = true;
-                    cellId = cellView.getId();
+//                    cellChosen = true;
+//                    cellId = cellView.getId();
                     if(solveOneChosen) {
                         if(cellView.getText() != getString(R.string.cell)) {
                             Toast.makeText(SolvingActivity.this, "cell already solved", Toast.LENGTH_SHORT).show();
@@ -83,7 +86,7 @@ public class SolvingActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
 
-        solveOneButton = (TextView) findViewById(R.id.solve_one);
+        solveOneButton = findViewById(R.id.solve_one);
     }
 
     public void onSolveOneClick(View view) {
@@ -142,16 +145,16 @@ public class SolvingActivity extends AppCompatActivity implements View.OnClickLi
         }
         int x = 0;
         int y = 0;
-        for(int i = 0; i < cells.length; i++) {
-            if(cells[i].getText() == getString(R.string.cell)) { // if the cell is empty then it will reveal it.
-                cells[i].setText(String.valueOf(completedBoard[y][x]));
-                cells[i].setBackground(getResources().getDrawable(R.drawable.cell_highlight));
+        for (TextView cell : cells) {
+            if (cell.getText() == getString(R.string.cell)) { // if the cell is empty then it will reveal it.
+                cell.setText(String.valueOf(completedBoard[y][x]));
+                cell.setBackground(getResources().getDrawable(R.drawable.cell_highlight));
                 emptyCells--;
             }
 
 //            increments through the 9x9 grid
             x++;
-            if(x > 8) {
+            if (x > 8) {
                 x = 0;
                 y++;
             }

@@ -26,9 +26,9 @@
 
             <TextView
                 android:id="@+id/x0y0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight=".11"
+                android:layout_weight="1"
                 android:background="@drawable/board_color1"
                 android:clickable="true"
                 android:focusable="true"
@@ -41,9 +41,9 @@
 
             <TextView
                 android:id="@+id/x1y0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight=".11"
+                android:layout_weight="1"
                 android:background="@drawable/board_color1"
                 android:clickable="true"
                 android:focusable="true"
@@ -56,9 +56,9 @@
 
             <TextView
                 android:id="@+id/x2y0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight=".11"
+                android:layout_weight="1"
                 android:background="@drawable/board_color1"
                 android:clickable="true"
                 android:focusable="true"
@@ -71,9 +71,9 @@
 
             <TextView
                 android:id="@+id/x3y0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight=".11"
+                android:layout_weight="1"
                 android:background="@drawable/board_color2"
                 android:clickable="true"
                 android:focusable="true"
@@ -86,9 +86,9 @@
 
             <TextView
                 android:id="@+id/x4y0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight=".11"
+                android:layout_weight="1"
                 android:background="@drawable/board_color2"
                 android:clickable="true"
                 android:focusable="true"
@@ -101,9 +101,9 @@
 
             <TextView
                 android:id="@+id/x5y0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight=".11"
+                android:layout_weight="1"
                 android:background="@drawable/board_color2"
                 android:clickable="true"
                 android:focusable="true"
@@ -116,9 +116,9 @@
 
             <TextView
                 android:id="@+id/x6y0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight=".11"
+                android:layout_weight="1"
                 android:background="@drawable/board_color1"
                 android:clickable="true"
                 android:focusable="true"
@@ -131,9 +131,9 @@
 
             <TextView
                 android:id="@+id/x7y0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight=".11"
+                android:layout_weight="1"
                 android:background="@drawable/board_color1"
                 android:clickable="true"
                 android:focusable="true"
@@ -146,9 +146,9 @@
 
             <TextView
                 android:id="@+id/x8y0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight=".11"
+                android:layout_weight="1"
                 android:background="@drawable/board_color1"
                 android:clickable="true"
                 android:focusable="true"

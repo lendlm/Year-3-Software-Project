@@ -1500,6 +1500,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clear_buttons" />
 
+<!--    howTo button-->
     <Button
         android:id="@+id/howTo_button"
         android:layout_width="50dp"

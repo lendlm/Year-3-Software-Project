@@ -32,7 +32,7 @@ public class cell {
         this.immutable = false;
     }
 
-    public cell(int newNumber, boolean _immutable) {
+    public cell(int newNumber, boolean _immutable) { // creates a cell that should not be changed
         this.number = newNumber;
         this.isEmpty = false;
         this.columnValid = true;
@@ -59,7 +59,7 @@ public class cell {
         } else {
             this.number = newNumber;
             this.setEmpty(false);
-            this.setAllValid();
+            this.setAllValid(); // resets all -Valid variables.
         }
     }
 
@@ -75,7 +75,7 @@ public class cell {
     }
     public void setColumnValid(boolean valid) {
         this.columnValid = valid;
-        if(!valid) {
+        if(!valid) { // marks the cell if it is invalid but unmarks it if all -Valid variables are valid
             this.setMarked(true);
         } else if(this.isColumnValid() && this.isRowValid() && this.isSquareValid()) {
             this.setMarked(false);

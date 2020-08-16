@@ -60,14 +60,14 @@ public class sudoku {
         boolean valid = true;
 
         for(int y = 0; y < grid.length; y++) {
-            if(y == column) {
+            if(y == column) { // the cell should not check with itself.
                 continue;
             }
             if(currentCell.getNumber() == grid[y][row].getNumber()) {
 //                System.out.println("invalid cell. number already exists in column.");
                 grid[column][row].setColumnValid(false);
                 grid[y][row].setColumnValid(false);
-                valid = false;
+                valid = false; // the loop does not break after finding the first invalid number in case there are more invalid cells
             }
         }
         return valid;
@@ -89,8 +89,9 @@ public class sudoku {
         return valid;
     }
     private boolean validSquare(cell currentCell, int row, int column) {
-        int xSquare = row - row%3;
+        int xSquare = row - row%3; // to look for which 3 x 3 square the cell resides in.
         int ySquare = column - column%3;
+
         boolean valid = true;
 
         for(int y = 0; y < 3; y++) {
@@ -138,8 +139,9 @@ public class sudoku {
             return false;
         }
 
-        unmarkCells(grid[column][row], column, row);
+        unmarkCells(grid[column][row], column, row); // unmarks other cells if they were invalid because of this cell.
 
+        // moved into their own functions
 //        if(!grid[column][row].isColumnValid()) {
 //            for(int y = 0; y < 9; y++) {
 //                if(y == column) {
@@ -192,7 +194,7 @@ public class sudoku {
             return;
         }
 
-        unmarkCells(grid[column][row], column, row);
+        unmarkCells(grid[column][row], column, row); // unmarks other cells if they were invalid because of this cell.
 
 //        System.out.println(grid[column][row].getNumber() + " has been removed.");
         grid[column][row] = new cell();
@@ -202,7 +204,7 @@ public class sudoku {
     private void unmarkCells(cell currentCell, int column, int row) {
 
         if(!currentCell.isColumnValid()) {
-            int multiInvalid = 0;
+            int multiInvalid = 0; // if there are more than one other cell that is invalid then they would still be invalid if the currentCell number is changed.
             boolean onlyTwoInvalid = true;
             for(int y = 0; y < 9; y++) {
                 if(y == column) {
@@ -340,6 +342,10 @@ public class sudoku {
                         bool = cells[x].isSquareValid() ? 1 : 0;
                         System.out.print(bool + " ");
                         break;
+                    case "isMarked":
+                        bool = cells[x].isMarked() ? 1 : 0;
+                        System.out.print(bool + " ");
+                        break;
                 }
             }
             System.out.println();
@@ -364,16 +370,15 @@ public class sudoku {
 
     public boolean checkIfCompleted() {
         updatePercentOfZeros();
-        if(this.percentOfZeros == 0 && checkIfGridValid()) {
-//            System.out.println("sudoku completed! congratulations!");
-            return true;
-        } else {
-//            System.out.println("sudoku is only " + (100 - this.percentOfZeros) + "% complete. keep it up!");
-            return false;
-        }
+
+        // these were needed when this boolean had an if statement.
+        //            System.out.println("sudoku completed! congratulations!");
+        //            System.out.println("sudoku is only " + (100 - this.percentOfZeros) + "% complete. keep it up!");
+
+        return this.percentOfZeros == 0 && checkIfGridValid();
     }
 
-    public int[][] getCellValues() {
+    public int[][] getCellValues() { // to return all the integer values as a 2D array.
         int[][] cellValues = new int[9][9];
         for(int y = 0; y < cellValues.length; y++) {
             for(int x = 0; x < cellValues[0].length; x++) {

@@ -17,15 +17,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView[] cells = new TextView[81];
     private TextView[] numberButtons = new TextView[9];
     private TextView clearButton;
-    private TextView clearAllButton;
-    private Button solveButton;
 
-//    when a view button has been pressed, the booleans will keep track of it and the TextViews will store which view was pressed.
+    //    when a view button has been pressed, the booleans will keep track of it and the TextViews will store which view was pressed.
     private boolean cellChosen = false;
     private boolean numberChosen = false;
     private boolean clearChosen = false;
-    private int cellId;
-    private int numberId;
+//    private int cellId;
+//    private int numberId;
     private TextView cellView;
     private TextView numView;
 
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             cellPos += (char) (y + '0');
 //            System.out.println(cellPos);
             int id = getResources().getIdentifier(cellPos, "id", getPackageName()); // gets int id for the corresponding cell position.
-            cells[i] = (TextView) findViewById(id);
+            cells[i] = findViewById(id);
             if(defaultBoard[y][x] != 0) {
                 cells[i].setText(String.valueOf(defaultBoard[y][x]));
             }
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    toastText += " chosen";
 //                    Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();
                     cellChosen = true;
-                    cellId = cellView.getId();
+//                    cellId = cellView.getId();
                     changeCellNumber();
                 }
             });
@@ -94,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String numButton = "choose_";
             numButton += (char) (i + '1');
             int id = getResources().getIdentifier(numButton, "id", getPackageName()); // gets int id for the corresponding number button.
-            numberButtons[i] = (TextView) findViewById(id);
+            numberButtons[i] = findViewById(id);
             numberButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -112,14 +110,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     numberChosen = true;
                     numView.setBackground(getResources().getDrawable(R.drawable.button_highlight));
                     clearChosen = false;
-                    numberId = numView.getId();
+//                    numberId = numView.getId();
                     changeCellNumber();
                 }
             });
         }
 
 //        setting click listener for clear button.
-        clearButton = (TextView) findViewById(R.id.clear_button);
+        clearButton = findViewById(R.id.clear_button);
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,32 +133,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        clearAllButton = (TextView) findViewById(R.id.clear_all_button);
+        TextView clearAllButton = findViewById(R.id.clear_all_button);
         clearAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clearChosen = false;
                 clearButton.setBackground(getResources().getDrawable(R.drawable.button2));
                 clearButton.setTextColor(getResources().getColor(R.color.text_color2));
-                for(int i = 0; i < cells.length; i++) {
-                    if(!(cells[i].getText() == getString(R.string.cell))) {
-                        cells[i].setText(getString(R.string.cell));
+                for(TextView cell : cells) {
+                    if(!(cell.getText() == getString(R.string.cell))) {
+                        cell.setText(getString(R.string.cell));
                     }
                 }
             }
         });
 
 //        setting click listener for solve button.
-        solveButton = (Button) findViewById(R.id.solve_button);
+        Button solveButton = findViewById(R.id.solve_button);
         solveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int x = 0;
                 int y = 0;
-                for(int i = 0; i < cells.length; i++) {
+                for(TextView cell : cells) {
 
-                    if(cells[i].getText() != getString(R.string.cell)) {
-                        userInput[y][x] = Integer.parseInt(cells[i].getText().toString());
+                    if(cell.getText() != getString(R.string.cell)) { // fills the 2D array of integers with the numbers on the sudoku.
+                        userInput[y][x] = Integer.parseInt(cell.getText().toString());
                     } else {
                         userInput[y][x] = 0;
                     }
@@ -172,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         y++;
                     }
                 }
+
                 OGPuzzle = new sudoku(userInput);
                 sudokuSolver = new solver(OGPuzzle);
                 if(sudokuSolver.solvePuzzle()) {
@@ -206,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             cellChosen = false; // this is to make sure when changing numbers, the cell just altered does not change as well.
 //            System.out.println("number and cell chosen");
         } else if(clearChosen && cellChosen) {
-            cellView.setText(getString(R.string.cell));
+            cellView.setText(R.string.cell);
             cellChosen = false;
         }
     }

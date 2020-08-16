@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Sudoku Solver</string>
 <!--    empty cell-->
-    <string name="cell"></string>
+    <string name="cell">" "</string>
 
 <!--    buttons to choose number-->
     <string name="button_1">1</string>
